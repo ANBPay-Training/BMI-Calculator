@@ -1,4 +1,5 @@
 import 'package:bmi_calculator/Components/bottom_button.dart';
+import 'package:bmi_calculator/calculator_brain.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../Components/reusable_card.dart';
@@ -206,15 +207,15 @@ class _InputPageState extends State<InputPage> {
             )),
             BottomButton(
                 onTap: () {
+                  CalculatorBrain calc =
+                      CalculatorBrain(height: height, weight: weight);
                   Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) => ResultsPage(
-                                interpretation: 'Normal',
-                                bmiResult: '18.0',
-                                resultText:
-                                    'your BMI result is quite low, you sholut eat more',
-                              )));
+                              bmiResult: calc.calculateBMI(),
+                              interpretation: calc.getInterpretation(),
+                              resultText: calc.getResult())));
                 },
                 buttonTitle: 'CALCULATE'),
           ],
